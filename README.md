@@ -357,7 +357,7 @@ The repository contains the source code, experiment results, documentation, and 
 
 ---
 
-## Author
+## Author: Kosisochukwu Ogbuanya
 
 **Computer Science Senior Seminar Project**
 
