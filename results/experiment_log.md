@@ -335,3 +335,40 @@ This experiment evaluates deceptive versus truthful reviews. It does not yet det
 The Multinomial Naive Bayes model achieved an accuracy of 87.50% on the test set. Its deceptive-review recall was 93%, while its truthful-review recall was 82%. This indicates that the model identified a larger proportion of deceptive reviews than truthful reviews in this evaluation. The accuracy was equal to the Logistic Regression baseline and 0.94 percentage points lower than the Linear SVM result.
 
 The classification report and confusion matrix were saved in the `results` directory.
+
+## Random Forest Experiment
+
+**Model:** Random Forest Classifier
+
+**Feature Representation:** TF-IDF with unigrams and bigrams
+
+**Dataset:** Deceptive Opinion Spam Corpus
+
+**Train/Test Split:** 80/20 stratified split
+
+**Random State:** 42
+
+**Number of Trees:** 200
+
+**Training Examples:** 1,280
+
+**Testing Examples:** 320
+
+### Results
+
+* **Accuracy:** 86.88%
+* **Correct Predictions:** 278 out of 320
+* **Incorrect Predictions:** 42 out of 320
+* **Deceptive Precision:** 0.87
+* **Deceptive Recall:** 0.86
+* **Deceptive F1-score:** 0.87
+* **Truthful Precision:** 0.86
+* **Truthful Recall:** 0.88
+* **Truthful F1-score:** 0.87
+
+### Interpretation
+
+The Random Forest model achieved an accuracy of 86.88% on the test set. It correctly classified 278 of the 320 test reviews. Its deceptive-review recall was 86%, while its truthful-review recall was 88%. Among the four traditional machine learning models evaluated on this dataset, Random Forest produced the lowest test accuracy.
+
+The Random Forest classification report and confusion matrix were saved in the `results` directory.
+
