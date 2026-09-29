@@ -535,3 +535,74 @@ Multinomial Naive Bayes produced lower overall accuracy at 88.50%, but achieved 
 Random Forest achieved 90.25% accuracy and produced relatively balanced performance between the two classes, with 92% human recall and 89% AI-generated recall.
 
 These results describe performance under the specific dataset, preprocessing, model configurations, and fixed train/test split used in this study. They should not be interpreted as evidence that one algorithm will always outperform the others on other datasets or experimental conditions.
+
+## Transformer-Based Experiment: DistilBERT on MAiDE-up English Reviews
+
+### Model
+
+The transformer-based experiment used DistilBERT (`distilbert-base-uncased`) to classify English hotel reviews as either human-authored or AI-generated.
+
+The experiment used the same MAiDE-up English dataset as the traditional machine-learning experiments.
+
+### Dataset Split
+
+The original 2,000 English reviews were divided into:
+
+- Training set: 1,280 reviews
+  - 640 human
+  - 640 AI-generated
+- Validation set: 320 reviews
+  - 160 human
+  - 160 AI-generated
+- Test set: 400 reviews
+  - 200 human
+  - 200 AI-generated
+
+The test set was kept separate and was not used during model training.
+
+### Preprocessing and Tokenization
+
+DistilBERT used the review text directly rather than TF-IDF features.
+
+Configuration:
+
+- Model: `distilbert-base-uncased`
+- Maximum sequence length: 256 tokens
+- Training batch size: 8
+- Evaluation batch size: 8
+- Learning rate: 2e-5
+- Epochs: 3
+- Weight decay: 0.01
+- Random seed: 42
+- Hardware: CPU
+
+### Validation Results
+
+| Epoch | Validation Accuracy | Validation Precision | Validation Recall | Validation F1 |
+|---|---:|---:|---:|---:|
+| 1 | 93.75% | 90.23% | 98.12% | 94.01% |
+| 2 | 97.19% | 96.89% | 97.50% | 97.20% |
+| 3 | 95.63% | 92.94% | 98.75% | 95.76% |
+
+The model achieved its highest validation F1 score at epoch 2 (97.20%). Because the training configuration selected the best model based on validation F1, the epoch-2 checkpoint was used for the final test evaluation.
+
+### Final Test Results
+
+| Class | Precision | Recall | F1-Score | Support |
+|---|---:|---:|---:|---:|
+| Human | 0.9265 | 0.9450 | 0.9356 | 200 |
+| AI | 0.9439 | 0.9250 | 0.9343 | 200 |
+| Accuracy | | | 0.9350 | 400 |
+
+Overall test performance:
+
+- Accuracy: 93.50%
+- Precision: 94.39%
+- Recall: 92.50%
+- F1 Score: 93.43%
+
+### Confusion Matrix
+
+```text
+[[189, 11],
+ [ 15, 185]]
