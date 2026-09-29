@@ -372,3 +372,166 @@ The Random Forest model achieved an accuracy of 86.88% on the test set. It corre
 
 The Random Forest classification report and confusion matrix were saved in the `results` directory.
 
+## MAiDE-up Human vs. AI-Generated Review Experiments
+
+Dataset: MAiDE-up English subset
+Task: Human-written vs. AI-generated review classification
+Training/Test Split: 80/20 stratified split
+Random State: 42
+Training Examples: 1,600
+Testing Examples: 400
+Class Distribution: 800 human / 800 AI-generated in training; 200 human / 200 AI-generated in testing
+
+### Data Preparation
+
+The MAiDE-up dataset was prepared by selecting the English-language reviews from the original dataset. The `Upside_Review` and `Downside_Review` fields were combined into a single `review_text` field. Rows without review text were removed. The resulting English dataset contained 2,000 reviews with an equal distribution of human-written and AI-generated reviews.
+
+The dataset was divided into training and testing sets using an 80/20 stratified split with `random_state=42`. This produced 1,600 training examples and 400 testing examples, with equal representation of both classes in each split.
+
+### Feature Representation
+
+All four traditional machine learning experiments used the same TF-IDF feature representation:
+
+* Lowercase text
+* English stop-word removal
+* Unigrams and bigrams
+* Maximum of 20,000 TF-IDF features
+
+Using the same feature representation and test set allowed the four traditional models to be compared under the same experimental conditions.
+
+### Logistic Regression Experiment
+
+Model: Logistic Regression
+
+Results:
+
+* Accuracy: 92.50%
+* Human Precision: 0.93
+* Human Recall: 0.92
+* Human F1-score: 0.92
+* AI-Generated Precision: 0.92
+* AI-Generated Recall: 0.94
+* AI-Generated F1-score: 0.93
+
+Confusion Matrix:
+
+```text
+[[183, 17],
+ [13, 187]]
+```
+
+The Logistic Regression model correctly classified 370 of the 400 test reviews. It identified 187 of the 200 AI-generated reviews and 183 of the 200 human reviews.
+
+Results files:
+
+* `results/maide_logistic_regression_report.csv`
+* `results/maide_logistic_regression_confusion_matrix.png`
+
+### Linear SVM Experiment
+
+Model: Linear Support Vector Machine
+
+Results:
+
+* Accuracy: 92.75%
+* Human Precision: 0.93
+* Human Recall: 0.93
+* Human F1-score: 0.93
+* AI-Generated Precision: 0.93
+* AI-Generated Recall: 0.93
+* AI-Generated F1-score: 0.93
+
+Confusion Matrix:
+
+```text
+[[185, 15],
+ [14, 186]]
+```
+
+The Linear SVM correctly classified 371 of the 400 test reviews. It produced one more correct prediction than Logistic Regression on this test set.
+
+Results files:
+
+* `results/maide_svm_report.csv`
+* `results/maide_svm_confusion_matrix.png`
+
+### Multinomial Naive Bayes Experiment
+
+Model: Multinomial Naive Bayes
+
+Results:
+
+* Accuracy: 88.50%
+* Human Precision: 0.99
+* Human Recall: 0.78
+* Human F1-score: 0.87
+* AI-Generated Precision: 0.82
+* AI-Generated Recall: 0.99
+* AI-Generated F1-score: 0.90
+
+Confusion Matrix:
+
+```text
+[[156, 44],
+ [2, 198]]
+```
+
+The Multinomial Naive Bayes model correctly classified 354 of the 400 test reviews. It identified 198 of the 200 AI-generated reviews but incorrectly classified 44 human reviews as AI-generated.
+
+Results files:
+
+* `results/maide_naive_bayes_report.csv`
+* `results/maide_naive_bayes_confusion_matrix.png`
+
+### Random Forest Experiment
+
+Model: Random Forest Classifier
+
+Configuration:
+
+* Number of trees: 200
+* Random state: 42
+* Parallel processing: enabled
+
+Results:
+
+* Accuracy: 90.25%
+* Human Precision: 0.89
+* Human Recall: 0.92
+* Human F1-score: 0.90
+* AI-Generated Precision: 0.92
+* AI-Generated Recall: 0.89
+* AI-Generated F1-score: 0.90
+
+Confusion Matrix:
+
+```text
+[[184, 16],
+ [23, 177]]
+```
+
+The Random Forest model correctly classified 361 of the 400 test reviews. It correctly identified 184 human reviews and 177 AI-generated reviews.
+
+Results files:
+
+* `results/maide_random_forest_report.csv`
+* `results/maide_random_forest_confusion_matrix.png`
+
+### Traditional Model Comparison
+
+| Model                   | Accuracy | Human Recall | AI Recall | Human F1 | AI F1 |
+| ----------------------- | -------: | -----------: | --------: | -------: | ----: |
+| Logistic Regression     |   92.50% |         0.92 |      0.94 |     0.92 |  0.93 |
+| Linear SVM              |   92.75% |         0.93 |      0.93 |     0.93 |  0.93 |
+| Multinomial Naive Bayes |   88.50% |         0.78 |      0.99 |     0.87 |  0.90 |
+| Random Forest           |   90.25% |         0.92 |      0.89 |     0.90 |  0.90 |
+
+### Initial Interpretation
+
+The four traditional models produced different performance patterns on the MAiDE-up English test set. Logistic Regression and Linear SVM produced similar results, with accuracies of 92.50% and 92.75%, respectively. Their class-level precision, recall, and F1-scores were also relatively balanced.
+
+Multinomial Naive Bayes produced lower overall accuracy at 88.50%, but achieved 99% recall for AI-generated reviews. This came with lower human-review recall of 78%, indicating that the model classified a comparatively larger number of human reviews as AI-generated.
+
+Random Forest achieved 90.25% accuracy and produced relatively balanced performance between the two classes, with 92% human recall and 89% AI-generated recall.
+
+These results describe performance under the specific dataset, preprocessing, model configurations, and fixed train/test split used in this study. They should not be interpreted as evidence that one algorithm will always outperform the others on other datasets or experimental conditions.
