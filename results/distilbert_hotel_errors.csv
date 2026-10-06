@@ -1,0 +1,30 @@
+review_text,label,Hotel Name,City Name,prediction,correct,actual_class,predicted_class
+"Nicely furnished room and nicely decorated lobby. Room service is affordable and the receptionists, especially Mr. Omar, are usually eager to help with any queries.",0,Hotel Ickale,Ankara,1,False,Human,AI
+"Breakfast was excellent on the rootftop The room was musty, very poor facilities",0,Güvenay Business Hotel,Ankara,1,False,Human,AI
+"The location was convenient to central Beijing and the breakfast was fine with reasonable options. The room service meals were quite good and at a reasonable price The room was really dated with ugly and poor quality re-grouting throughout the bathroom. The bathroom was an awful brown colour, the plug on the basin did not work and ugly grout/silicone everywhere. The safe was too small to hold a 16"" laptop. Also the glass had this really ugly brown marks all over obscuring the view",0,Novotel Beijing Peace,Beijing,1,False,Human,AI
+"The garden area is a lovely space to chill in. The room seemed small and dark, no way near as nice as the AMANO Grand central. The view from the bedroom window was awful and not much better from the roof top bar. Overall disappointed given the price. Staff were not very friendly and a bit flippant.",0,AMANO East Side,Berlin,1,False,Human,AI
+"Central, clean, modern and great facilities. My view was non existent but quiet.",0,Eurostars Berlin,Berlin,1,False,Human,AI
+"The breakfast buffet was very good, with friendly staff.",0,"Central Hotel, Trademark Collection by Wyndham",Bucharest,1,False,Human,AI
+location staff was inexperienced and unpleasant. Shocking enough one of the rooms was so small that the bed was “placed” between three walls. Strongly recommend the advertisement is replaced and pictures are loyal to the actual space.,0,Pestana CR7 Gran Vía Madrid,Madrid,1,False,Human,AI
+"The location is ideal. My room was very small. My overall impression of the installations was that the Hotel needs an overall refit (slow elevators, small reception, charmless floors…)",0,Catalonia Gran Vía Madrid,Madrid,1,False,Human,AI
+"Nice clean rooms, very prompt & helpful staff, good breakfast, food taste was excellent, convenient location walking distance from metro station and close to New Delhi station also, overall excellent stay Room was bit small, some construction making path from metro to hotel bit inconvenient, food variety for dinner could be increased",0,The Prime Delhi,New Delhi,1,False,Human,AI
+"Room was spacious. Had sofas and a table. Cleanliness was missing.
+Wifi was not working at all.
+There was an eerie smell in the room when we entered.",0,FabHotel White Klove Paharganj,New Delhi,1,False,Human,AI
+The fluidity of the space the friendly and discreet staff The passage to the rooms was like a maze.,0,Andaz Delhi Aerocity- Concept by Hyatt,New Delhi,1,False,Human,AI
+"Location The ""superior"" garden room was like sleeping in a basement. Carpet was stained and disgusting. Two front desk staff -- one very smug and with big attitude. Overall negative vibe and experience. Not as advertised online. Disappointed and was not a good value. Would not recommend.",0,Hotel Eiffel Seine,Paris,1,False,Human,AI
+"breakfast in a dark basement , and unprofessional staff.
+price too high for the quality of the room",0,Sofitel Le Scribe Paris Opera,Paris,1,False,Human,AI
+A peaceful respite after lots of touring! My room felt a little bit warm at night.,0,NH Roma Villa Carpegna,Rome,1,False,Human,AI
+The property is in the best location in Seoul. It’s right next to a metro station for the tourist attractions and is set in the bustling neighbourhood of Myeondong so is perfect for late evening strolls to take in some culture and shopping.,0,Hotel Skypark Central Myeongdong,Seoul,1,False,Human,AI
+"location poor facilities, poor additional service; room is too small compared to its prices of 4 stars hotel, no amenities such as toothpaste and toothbrush, no mini bar, breakfast is so terrible and poor options.",0,Hotel Skypark Central Myeongdong,Seoul,1,False,Human,AI
+Really enjoyed the spacious rooms and great view of the city. Can't think of any.,1,Raymar Hotels Ankara,Ankara,0,False,AI,Human
+"Staff is friendly and helpful. Room was clean, breakfast was delicious as well Couldn't find any negatives",1,Eurostars Berlin,Berlin,0,False,AI,Human
+"+The location - Room was noisy due to lack of sound proofing 
+- Bathtub was clogged up, water did not drain 
+- Elevators too small and felt claustrophobic",1,Catalonia Gran Vía Madrid,Madrid,0,False,AI,Human
+"The hotel location was tolerable The room was not cleaned properly. There were hairs in the bathroom and fridge was half stocked. Staff were not too helpful or friendly. Also, our room was not ready when we arrived.",1,Hotel 55 Fifty-Five - Maison d'Art Collection,Rome,0,False,AI,Human
+"Perfect location for shopping, nice view Breakfast could have more variety",1,Hotel Skypark Central Myeongdong,Seoul,0,False,AI,Human
+The location was great. Staff were friendly and breakfast was good Had to carry luggage up and down the stairs,1,Hotel Skypark Central Myeongdong,Seoul,0,False,AI,Human
+Exceptional staff and service Nothing,1,Stay Hotel Gangnam,Seoul,0,False,AI,Human
+"centrally located dated interior and lousy service, plus way overpriced for what you get",1,Hamilton Hotel - Washington DC,Washington,0,False,AI,Human

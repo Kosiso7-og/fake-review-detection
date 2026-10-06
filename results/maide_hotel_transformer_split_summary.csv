@@ -1,0 +1,101 @@
+hotel_name,split,reviews,human_reviews,ai_reviews
+Adveniat Paris,train,20,10,10
+Alpi Hotel,train,20,10,10
+Axel Hotel Madrid - Adults Only,train,20,10,10
+Beacon Hotel & Corporate Quarters,train,20,10,10
+BlnCty Hotel,train,20,10,10
+Bloomrooms @ New Delhi Railway Station,train,20,10,10
+Central Guesthouse,train,20,10,10
+Courtyard by Marriott Paris Gare de Lyon,train,20,10,10
+Emperador,train,20,10,10
+Estrel Berlin,train,20,10,10
+Eurostars Casa de la Lírica,train,20,10,10
+Eurostars Madrid Tower,train,20,10,10
+Exe International Palace,train,20,10,10
+"Four Points by Sheraton Josun, Seoul Station",train,20,10,10
+Generator Hotel Washington DC,train,20,10,10
+Generator Madrid,train,20,10,10
+Glover Park Hotel Georgetown,train,20,10,10
+Grand Millennium Beijing,train,20,10,10
+Hamilton Hotel,train,20,10,10
+Hilton Garden Inn Washington DC Downtown,train,20,10,10
+Hilton Washington DC Capitol Hill,train,20,10,10
+"Holiday Inn Express Beijing Dongzhimen, an IHG Hotel",train,20,10,10
+"Holiday Inn Temple Of Heaven Beijing, an IHG Hotel",train,20,10,10
+Hotel Avenida Gran Vía,train,20,10,10
+Hotel International Inn - Near Delhi Airport,train,20,10,10
+Hotel Michelangelo,train,20,10,10
+Hotel Mimosa Paris,train,20,10,10
+Hotel Minerve,train,20,10,10
+Hotel Nation Montmartre,train,20,10,10
+Hotel Opera New Delhi,train,20,10,10
+Hotel Skypark Dongdaemun I,train,20,10,10
+Hotel Skypark Myeongdong 1,train,20,10,10
+Hotel Villa Pamphili Roma,train,20,10,10
+Hotel Vivaldi Berlin am Kurfürstendamm,train,20,10,10
+Hôtel Lodge In Paris 13,train,20,10,10
+Ibis Styles Ambassador Seoul Myeong-dong,train,20,10,10
+Ibis budget Berlin Potsdamer Platz,train,20,10,10
+Inn 14 Hostel,train,20,10,10
+LOTTE City Hotel Myeongdong,train,20,10,10
+Motel One Paris-Porte Dorée,train,20,10,10
+Motto by Hilton Washington DC City Center,train,20,10,10
+Moxy Bucharest Old Town,train,20,10,10
+NH Barajas Airport,train,20,10,10
+NH Collection Roma Centro,train,20,10,10
+New Park Hotel,train,20,10,10
+New World Beijing Hotel,train,20,10,10
+Orakai Insadong Suites,train,20,10,10
+Peking Youth Hostel,train,20,10,10
+Riggs Washington DC,train,20,10,10
+Riu Plaza España,train,20,10,10
+SonGy Hundred-year Courtyard Hotel,train,20,10,10
+State Plaza Hotel,train,20,10,10
+"The Ashok, New Delhi",train,20,10,10
+The Embassy Nord,train,20,10,10
+The Hive Hotel,train,20,10,10
+The Spanish Suite Campo de' Fiori,train,20,10,10
+The Westin Grand Berlin,train,20,10,10
+Tomis Garden Aparthotel Bucuresti,train,20,10,10
+UDS Villa - Scandinavian B&B,train,20,10,10
+Upstairs Boutique,train,20,10,10
+Vitan ApartHotel,train,20,10,10
+citizenM Paris Champs-Élysées,train,20,10,10
+ibis Ankara Airport Hotel,train,20,10,10
+numa I Arc Rooms & Apartments,train,20,10,10
+AT Central Apartments,validation,20,10,10
+Ballhaus Berlin Hostel,validation,20,10,10
+Courtyard by Marriott Washington Downtown/Convention Center,validation,20,10,10
+Esila Hotel,validation,20,10,10
+Generator Berlin Mitte,validation,20,10,10
+Grand Mercure Ankara,validation,20,10,10
+"Holiday Inn Express Beijing Temple of Heaven, an IHG Hotel",validation,20,10,10
+Hotel 77 Seventy-Seven - Maison D'Art Collection,validation,20,10,10
+Hotel 87 eighty-seven - Maison d'Art Collection,validation,20,10,10
+Hotel Cinnah,validation,20,10,10
+Hotel Krishna Deluxe-By RCG Hotels,validation,20,10,10
+Hyatt Regency Delhi,validation,20,10,10
+Imperial Palace Boutique Hotel,validation,20,10,10
+The Great Wall Hotel Beijing,validation,20,10,10
+The Green Park Ankara,validation,20,10,10
+"The Marmorosch Bucharest, Autograph Collection",validation,20,10,10
+AMANO East Side,test,20,10,10
+Andaz Delhi Aerocity- Concept by Hyatt,test,20,10,10
+Catalonia Gran Vía Madrid,test,20,10,10
+"Central Hotel, Trademark Collection by Wyndham",test,20,10,10
+Eurostars Berlin,test,20,10,10
+FabHotel White Klove Paharganj,test,20,10,10
+Guo Ji Yi Yuan Hotel,test,20,10,10
+Güvenay Business Hotel,test,20,10,10
+Hamilton Hotel - Washington DC,test,20,10,10
+Hotel 55 Fifty-Five - Maison d'Art Collection,test,20,10,10
+Hotel Eiffel Seine,test,20,10,10
+Hotel Ickale,test,20,10,10
+Hotel Skypark Central Myeongdong,test,20,10,10
+NH Roma Villa Carpegna,test,20,10,10
+Novotel Beijing Peace,test,20,10,10
+Pestana CR7 Gran Vía Madrid,test,20,10,10
+Raymar Hotels Ankara,test,20,10,10
+Sofitel Le Scribe Paris Opera,test,20,10,10
+Stay Hotel Gangnam,test,20,10,10
+The Prime Delhi,test,20,10,10

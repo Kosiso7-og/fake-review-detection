@@ -1,325 +1,125 @@
 \# Experiment 1: TF-IDF + Logistic Regression
-
-
-
 \## Dataset
-
-
-
 \- Dataset name: Deceptive Opinion Spam Corpus
-
 \- Dataset source: Kaggle
-
 \- Number of original records: 1,600
-
 \- Number of records after cleaning: 1,600
-
 \- Text column: `text`
-
 \- Label column: `deceptive`
-
 \- Classes: `truthful` and `deceptive`
-
 \- Class distribution:
-
-&#x20; - Truthful: 800
-
-&#x20; - Deceptive: 800
-
+  - Truthful: 800
+  - Deceptive: 800
 \- Missing values: None
-
-
-
 \## Data Split
-
-
-
 \- Training percentage: 80%
-
 \- Testing percentage: 20%
-
 \- Training examples: 1,280
-
 \- Testing examples: 320
-
 \- Random state: 42
-
 \- Stratification: Yes
-
-
-
 \## Model
-
-
-
 \- Feature extraction: TF-IDF
-
 \- Lowercase: Yes
-
 \- Stop words: English
-
 \- N-grams: 1–2
-
 \- Maximum features: 20,000
-
 \- Classifier: Logistic Regression
-
 \- Maximum iterations: 1,000
-
-
-
 \## Results
-
-
-
 \- Accuracy: 0.8750, or 87.50%
-
 \- Precision:
-
-&#x20; - Deceptive: 0.88
-
-&#x20; - Truthful: 0.88
-
-&#x20; - Macro average: 0.88
-
-&#x20; - Weighted average: 0.88
-
+  - Deceptive: 0.88
+  - Truthful: 0.88
+  - Macro average: 0.88
+  - Weighted average: 0.88
 \- Recall:
-
-&#x20; - Deceptive: 0.88
-
-&#x20; - Truthful: 0.88
-
-&#x20; - Macro average: 0.88
-
-&#x20; - Weighted average: 0.88
-
+  - Deceptive: 0.88
+  - Truthful: 0.88
+  - Macro average: 0.88
+  - Weighted average: 0.88
 \- F1-score:
-
-&#x20; - Deceptive: 0.88
-
-&#x20; - Truthful: 0.88
-
-&#x20; - Macro average: 0.88
-
-&#x20; - Weighted average: 0.88
-
-
-
+  - Deceptive: 0.88
+  - Truthful: 0.88
+  - Macro average: 0.88
+  - Weighted average: 0.88
 \## Confusion Matrix
-
-
-
 The confusion matrix was:
-
-
-
-&#x20;             Predicted
-
-&#x20;             Truthful  Deceptive
-
-
-
-Actual Truthful     140       20
-
-Actual Deceptive     20      140
-
-
-
+              Predicted
+              Truthful  Deceptive
+Actual Truthful     140       20
+Actual Deceptive     20      140
 \- Correctly classified truthful reviews: 140
-
 \- Truthful reviews incorrectly classified as deceptive: 20
-
 \- Deceptive reviews incorrectly classified as truthful: 20
-
 \- Correctly classified deceptive reviews: 140
-
 \- Total correct predictions: 280
-
 \- Total incorrect predictions: 40
-
-
-
 \## Observations
-
-
-
 \- The TF-IDF + Logistic Regression model achieved an accuracy of 87.50%.
-
 \- The model performed similarly on both classes.
-
 \- Precision, recall, and F1-score were approximately 0.88 for both truthful and deceptive reviews.
-
 \- The dataset was balanced, with 800 truthful and 800 deceptive reviews.
-
 \- The confusion matrix shows that the model correctly classified 280 out of 320 test reviews.
-
 \- The model incorrectly classified 40 test reviews.
-
 \- The model made 20 false-positive predictions and 20 false-negative predictions.
-
 \- The baseline provides a useful reference point for comparing more advanced models.
-
-
-
 \## Problems Encountered
-
-
-
 \- The dataset filename initially did not match the filename expected by the Python script.
-
 \- The dataset path was corrected to `data/raw/deceptive-reviews.csv`.
-
 \- The dataset was successfully loaded after correcting the file path.
-
 \- No missing values were found in the dataset.
-
 \- No major model-training errors occurred.
-
-
-
 \## Next Experiment
-
-
-
 \- TF-IDF + Support Vector Machine
-
 \- Use the same dataset split and evaluation metrics.
-
 \- Compare accuracy, precision, recall, F1-score, and confusion matrix with Experiment 001.
-
-
-
 \## Reproducibility
-
-
-
 The experiment was run using:
-
-
-
 ```powershell
-
 python src\\train\_baseline.py
-
-
-
 \# Experiment 2: Linear Support Vector Machine
-
-
-
 \## Model Configuration
-
-
-
 The second experiment used a Linear Support Vector Machine with the same TF-IDF preprocessing and train/test split as the Logistic Regression baseline.
-
-
-
 Configuration:
-
-
-
 \- Model: LinearSVC
-
 \- Text representation: TF-IDF
-
 \- Lowercase text: True
-
 \- English stop-word removal: Enabled
-
 \- N-gram range: (1, 2)
-
 \- Maximum features: 20,000
-
 \- Train/test split: 80/20
-
 \- Random state: 42
-
-
-
 \## Results
-
-
-
 The Linear SVM achieved an accuracy of \*\*88.44%\*\* on the 320-review test set.
-
-
-
 | Metric | Truthful | Deceptive |
-
 |---|---:|---:|
-
 | Precision | 0.9184 | 0.8555 |
-
 | Recall | 0.8438 | 0.9250 |
-
 | F1-score | 0.8795 | 0.8889 |
-
-
-
 Overall macro averages:
-
-
-
 \- Precision: 0.8869
-
 \- Recall: 0.8844
-
 \- F1-score: 0.8842
-
-
-
 \## Comparison with Logistic Regression
-
-
-
 | Model | Representation | Accuracy |
-
 |---|---|---:|
-
 | Logistic Regression | TF-IDF | 87.50% |
-
 | Linear SVM | TF-IDF | 88.44% |
-
-
-
 The Linear SVM improved accuracy by approximately \*\*0.94 percentage points\*\* compared with Logistic Regression.
-
-
-
 The SVM also achieved a deceptive-review recall of \*\*92.50%\*\*, indicating that it detected most deceptive reviews in the test set.
-
-
-
 \## Observation
-
-
-
 The Linear SVM slightly outperformed Logistic Regression on this dataset and split. However, the improvement was relatively small. Additional traditional machine learning models and transformer-based models are needed for a broader comparison.
-
-
-
 This experiment evaluates deceptive versus truthful reviews. It does not yet determine whether a review was specifically generated by artificial intelligence.
-
 ## Multinomial Naive Bayes Experiment
-
 **Model:** Multinomial Naive Bayes
-
 **Feature Representation:** TF-IDF with unigrams and bigrams
-
 **Dataset:** Deceptive Opinion Spam Corpus
-
 **Train/Test Split:** 80/20 stratified split
-
 **Random State:** 42
-
 **Training Examples:** 1,280
-
 **Testing Examples:** 320
-
 ### Results
-
 * **Accuracy:** 87.50%
 * **Correct Predictions:** 280 out of 320
 * **Incorrect Predictions:** 40 out of 320
@@ -329,33 +129,19 @@ This experiment evaluates deceptive versus truthful reviews. It does not yet det
 * **Truthful Precision:** 0.92
 * **Truthful Recall:** 0.82
 * **Truthful F1-score:** 0.87
-
 ### Interpretation
-
 The Multinomial Naive Bayes model achieved an accuracy of 87.50% on the test set. Its deceptive-review recall was 93%, while its truthful-review recall was 82%. This indicates that the model identified a larger proportion of deceptive reviews than truthful reviews in this evaluation. The accuracy was equal to the Logistic Regression baseline and 0.94 percentage points lower than the Linear SVM result.
-
 The classification report and confusion matrix were saved in the `results` directory.
-
 ## Random Forest Experiment
-
 **Model:** Random Forest Classifier
-
 **Feature Representation:** TF-IDF with unigrams and bigrams
-
 **Dataset:** Deceptive Opinion Spam Corpus
-
 **Train/Test Split:** 80/20 stratified split
-
 **Random State:** 42
-
 **Number of Trees:** 200
-
 **Training Examples:** 1,280
-
 **Testing Examples:** 320
-
 ### Results
-
 * **Accuracy:** 86.88%
 * **Correct Predictions:** 278 out of 320
 * **Incorrect Predictions:** 42 out of 320
@@ -365,15 +151,10 @@ The classification report and confusion matrix were saved in the `results` direc
 * **Truthful Precision:** 0.86
 * **Truthful Recall:** 0.88
 * **Truthful F1-score:** 0.87
-
 ### Interpretation
-
 The Random Forest model achieved an accuracy of 86.88% on the test set. It correctly classified 278 of the 320 test reviews. Its deceptive-review recall was 86%, while its truthful-review recall was 88%. Among the four traditional machine learning models evaluated on this dataset, Random Forest produced the lowest test accuracy.
-
 The Random Forest classification report and confusion matrix were saved in the `results` directory.
-
 ## MAiDE-up Human vs. AI-Generated Review Experiments
-
 Dataset: MAiDE-up English subset
 Task: Human-written vs. AI-generated review classification
 Training/Test Split: 80/20 stratified split
@@ -381,30 +162,19 @@ Random State: 42
 Training Examples: 1,600
 Testing Examples: 400
 Class Distribution: 800 human / 800 AI-generated in training; 200 human / 200 AI-generated in testing
-
 ### Data Preparation
-
 The MAiDE-up dataset was prepared by selecting the English-language reviews from the original dataset. The `Upside_Review` and `Downside_Review` fields were combined into a single `review_text` field. Rows without review text were removed. The resulting English dataset contained 2,000 reviews with an equal distribution of human-written and AI-generated reviews.
-
 The dataset was divided into training and testing sets using an 80/20 stratified split with `random_state=42`. This produced 1,600 training examples and 400 testing examples, with equal representation of both classes in each split.
-
 ### Feature Representation
-
 All four traditional machine learning experiments used the same TF-IDF feature representation:
-
 * Lowercase text
 * English stop-word removal
 * Unigrams and bigrams
 * Maximum of 20,000 TF-IDF features
-
 Using the same feature representation and test set allowed the four traditional models to be compared under the same experimental conditions.
-
 ### Logistic Regression Experiment
-
 Model: Logistic Regression
-
 Results:
-
 * Accuracy: 92.50%
 * Human Precision: 0.93
 * Human Recall: 0.92
@@ -412,27 +182,18 @@ Results:
 * AI-Generated Precision: 0.92
 * AI-Generated Recall: 0.94
 * AI-Generated F1-score: 0.93
-
 Confusion Matrix:
-
 ```text
 [[183, 17],
- [13, 187]]
+ [13, 187]]
 ```
-
 The Logistic Regression model correctly classified 370 of the 400 test reviews. It identified 187 of the 200 AI-generated reviews and 183 of the 200 human reviews.
-
 Results files:
-
 * `results/maide_logistic_regression_report.csv`
 * `results/maide_logistic_regression_confusion_matrix.png`
-
 ### Linear SVM Experiment
-
 Model: Linear Support Vector Machine
-
 Results:
-
 * Accuracy: 92.75%
 * Human Precision: 0.93
 * Human Recall: 0.93
@@ -440,27 +201,18 @@ Results:
 * AI-Generated Precision: 0.93
 * AI-Generated Recall: 0.93
 * AI-Generated F1-score: 0.93
-
 Confusion Matrix:
-
 ```text
 [[185, 15],
- [14, 186]]
+ [14, 186]]
 ```
-
 The Linear SVM correctly classified 371 of the 400 test reviews. It produced one more correct prediction than Logistic Regression on this test set.
-
 Results files:
-
 * `results/maide_svm_report.csv`
 * `results/maide_svm_confusion_matrix.png`
-
 ### Multinomial Naive Bayes Experiment
-
 Model: Multinomial Naive Bayes
-
 Results:
-
 * Accuracy: 88.50%
 * Human Precision: 0.99
 * Human Recall: 0.78
@@ -468,33 +220,22 @@ Results:
 * AI-Generated Precision: 0.82
 * AI-Generated Recall: 0.99
 * AI-Generated F1-score: 0.90
-
 Confusion Matrix:
-
 ```text
 [[156, 44],
- [2, 198]]
+ [2, 198]]
 ```
-
 The Multinomial Naive Bayes model correctly classified 354 of the 400 test reviews. It identified 198 of the 200 AI-generated reviews but incorrectly classified 44 human reviews as AI-generated.
-
 Results files:
-
 * `results/maide_naive_bayes_report.csv`
 * `results/maide_naive_bayes_confusion_matrix.png`
-
 ### Random Forest Experiment
-
 Model: Random Forest Classifier
-
 Configuration:
-
 * Number of trees: 200
 * Random state: 42
 * Parallel processing: enabled
-
 Results:
-
 * Accuracy: 90.25%
 * Human Precision: 0.89
 * Human Recall: 0.92
@@ -502,70 +243,46 @@ Results:
 * AI-Generated Precision: 0.92
 * AI-Generated Recall: 0.89
 * AI-Generated F1-score: 0.90
-
 Confusion Matrix:
-
 ```text
 [[184, 16],
- [23, 177]]
+ [23, 177]]
 ```
-
 The Random Forest model correctly classified 361 of the 400 test reviews. It correctly identified 184 human reviews and 177 AI-generated reviews.
-
 Results files:
-
 * `results/maide_random_forest_report.csv`
 * `results/maide_random_forest_confusion_matrix.png`
-
 ### Traditional Model Comparison
-
-| Model                   | Accuracy | Human Recall | AI Recall | Human F1 | AI F1 |
+| Model                   | Accuracy | Human Recall | AI Recall | Human F1 | AI F1 |
 | ----------------------- | -------: | -----------: | --------: | -------: | ----: |
-| Logistic Regression     |   92.50% |         0.92 |      0.94 |     0.92 |  0.93 |
-| Linear SVM              |   92.75% |         0.93 |      0.93 |     0.93 |  0.93 |
-| Multinomial Naive Bayes |   88.50% |         0.78 |      0.99 |     0.87 |  0.90 |
-| Random Forest           |   90.25% |         0.92 |      0.89 |     0.90 |  0.90 |
-
+| Logistic Regression     |   92.50% |         0.92 |      0.94 |     0.92 |  0.93 |
+| Linear SVM              |   92.75% |         0.93 |      0.93 |     0.93 |  0.93 |
+| Multinomial Naive Bayes |   88.50% |         0.78 |      0.99 |     0.87 |  0.90 |
+| Random Forest           |   90.25% |         0.92 |      0.89 |     0.90 |  0.90 |
 ### Initial Interpretation
-
 The four traditional models produced different performance patterns on the MAiDE-up English test set. Logistic Regression and Linear SVM produced similar results, with accuracies of 92.50% and 92.75%, respectively. Their class-level precision, recall, and F1-scores were also relatively balanced.
-
 Multinomial Naive Bayes produced lower overall accuracy at 88.50%, but achieved 99% recall for AI-generated reviews. This came with lower human-review recall of 78%, indicating that the model classified a comparatively larger number of human reviews as AI-generated.
-
 Random Forest achieved 90.25% accuracy and produced relatively balanced performance between the two classes, with 92% human recall and 89% AI-generated recall.
-
 These results describe performance under the specific dataset, preprocessing, model configurations, and fixed train/test split used in this study. They should not be interpreted as evidence that one algorithm will always outperform the others on other datasets or experimental conditions.
-
 ## Transformer-Based Experiment: DistilBERT on MAiDE-up English Reviews
-
 ### Model
-
 The transformer-based experiment used DistilBERT (`distilbert-base-uncased`) to classify English hotel reviews as either human-authored or AI-generated.
-
 The experiment used the same MAiDE-up English dataset as the traditional machine-learning experiments.
-
 ### Dataset Split
-
 The original 2,000 English reviews were divided into:
-
 - Training set: 1,280 reviews
-  - 640 human
-  - 640 AI-generated
+  - 640 human
+  - 640 AI-generated
 - Validation set: 320 reviews
-  - 160 human
-  - 160 AI-generated
+  - 160 human
+  - 160 AI-generated
 - Test set: 400 reviews
-  - 200 human
-  - 200 AI-generated
-
+  - 200 human
+  - 200 AI-generated
 The test set was kept separate and was not used during model training.
-
 ### Preprocessing and Tokenization
-
 DistilBERT used the review text directly rather than TF-IDF features.
-
 Configuration:
-
 - Model: `distilbert-base-uncased`
 - Maximum sequence length: 256 tokens
 - Training batch size: 8
@@ -575,34 +292,25 @@ Configuration:
 - Weight decay: 0.01
 - Random seed: 42
 - Hardware: CPU
-
 ### Validation Results
-
 | Epoch | Validation Accuracy | Validation Precision | Validation Recall | Validation F1 |
 |---|---:|---:|---:|---:|
 | 1 | 93.75% | 90.23% | 98.12% | 94.01% |
 | 2 | 97.19% | 96.89% | 97.50% | 97.20% |
 | 3 | 95.63% | 92.94% | 98.75% | 95.76% |
-
 The model achieved its highest validation F1 score at epoch 2 (97.20%). Because the training configuration selected the best model based on validation F1, the epoch-2 checkpoint was used for the final test evaluation.
-
 ### Final Test Results
-
 | Class | Precision | Recall | F1-Score | Support |
 |---|---:|---:|---:|---:|
 | Human | 0.9265 | 0.9450 | 0.9356 | 200 |
 | AI | 0.9439 | 0.9250 | 0.9343 | 200 |
 | Accuracy | | | 0.9350 | 400 |
-
 Overall test performance:
-
 - Accuracy: 93.50%
 - Precision: 94.39%
 - Recall: 92.50%
 - F1 Score: 93.43%
-
 ### Confusion Matrix
-
 ```text
 [[189, 11],
- [ 15, 185]]
+ [ 15, 185]]

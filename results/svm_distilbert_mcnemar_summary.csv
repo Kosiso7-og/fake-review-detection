@@ -1,0 +1,2 @@
+test_reviews,svm_accuracy,distilbert_accuracy,accuracy_difference,both_correct,both_wrong,svm_only_correct,distilbert_only_correct,total_disagreements,mcnemar_exact_p_value,alpha,statistically_significant
+400,0.925,0.94,0.014999999999999902,354,8,16,22,38,0.417692190836533,0.05,False

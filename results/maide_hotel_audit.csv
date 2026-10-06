@@ -1,0 +1,101 @@
+City Name,Hotel Name,human_reviews,ai_reviews,total_reviews,contains_both_classes
+Ankara,Esila Hotel,10,10,20,True
+Ankara,Grand Mercure Ankara,10,10,20,True
+Ankara,Güvenay Business Hotel,10,10,20,True
+Ankara,Hotel Cinnah,10,10,20,True
+Ankara,Hotel Ickale,10,10,20,True
+Ankara,Inn 14 Hostel,10,10,20,True
+Ankara,New Park Hotel,10,10,20,True
+Ankara,Raymar Hotels Ankara,10,10,20,True
+Ankara,The Green Park Ankara,10,10,20,True
+Ankara,ibis Ankara Airport Hotel,10,10,20,True
+Beijing,Grand Millennium Beijing,10,10,20,True
+Beijing,Guo Ji Yi Yuan Hotel,10,10,20,True
+Beijing,"Holiday Inn Express Beijing Dongzhimen, an IHG Hotel",10,10,20,True
+Beijing,"Holiday Inn Express Beijing Temple of Heaven, an IHG Hotel",10,10,20,True
+Beijing,"Holiday Inn Temple Of Heaven Beijing, an IHG Hotel",10,10,20,True
+Beijing,New World Beijing Hotel,10,10,20,True
+Beijing,Novotel Beijing Peace,10,10,20,True
+Beijing,Peking Youth Hostel,10,10,20,True
+Beijing,SonGy Hundred-year Courtyard Hotel,10,10,20,True
+Beijing,The Great Wall Hotel Beijing,10,10,20,True
+Berlin,AMANO East Side,10,10,20,True
+Berlin,Ballhaus Berlin Hostel,10,10,20,True
+Berlin,BlnCty Hotel,10,10,20,True
+Berlin,Estrel Berlin,10,10,20,True
+Berlin,Eurostars Berlin,10,10,20,True
+Berlin,Generator Berlin Mitte,10,10,20,True
+Berlin,Hotel Vivaldi Berlin am Kurfürstendamm,10,10,20,True
+Berlin,Ibis budget Berlin Potsdamer Platz,10,10,20,True
+Berlin,The Westin Grand Berlin,10,10,20,True
+Berlin,numa I Arc Rooms & Apartments,10,10,20,True
+Bucharest,AT Central Apartments,10,10,20,True
+Bucharest,Central Guesthouse,10,10,20,True
+Bucharest,"Central Hotel, Trademark Collection by Wyndham",10,10,20,True
+Bucharest,Hotel Michelangelo,10,10,20,True
+Bucharest,Moxy Bucharest Old Town,10,10,20,True
+Bucharest,The Embassy Nord,10,10,20,True
+Bucharest,"The Marmorosch Bucharest, Autograph Collection",10,10,20,True
+Bucharest,Tomis Garden Aparthotel Bucuresti,10,10,20,True
+Bucharest,Upstairs Boutique,10,10,20,True
+Bucharest,Vitan ApartHotel,10,10,20,True
+Madrid,Axel Hotel Madrid - Adults Only,10,10,20,True
+Madrid,Catalonia Gran Vía Madrid,10,10,20,True
+Madrid,Emperador,10,10,20,True
+Madrid,Eurostars Casa de la Lírica,10,10,20,True
+Madrid,Eurostars Madrid Tower,10,10,20,True
+Madrid,Generator Madrid,10,10,20,True
+Madrid,Hotel Avenida Gran Vía,10,10,20,True
+Madrid,NH Barajas Airport,10,10,20,True
+Madrid,Pestana CR7 Gran Vía Madrid,10,10,20,True
+Madrid,Riu Plaza España,10,10,20,True
+New Delhi,Andaz Delhi Aerocity- Concept by Hyatt,10,10,20,True
+New Delhi,Bloomrooms @ New Delhi Railway Station,10,10,20,True
+New Delhi,FabHotel White Klove Paharganj,10,10,20,True
+New Delhi,Hotel International Inn - Near Delhi Airport,10,10,20,True
+New Delhi,Hotel Krishna Deluxe-By RCG Hotels,10,10,20,True
+New Delhi,Hotel Opera New Delhi,10,10,20,True
+New Delhi,Hyatt Regency Delhi,10,10,20,True
+New Delhi,"The Ashok, New Delhi",10,10,20,True
+New Delhi,The Prime Delhi,10,10,20,True
+New Delhi,UDS Villa - Scandinavian B&B,10,10,20,True
+Paris,Adveniat Paris,10,10,20,True
+Paris,Courtyard by Marriott Paris Gare de Lyon,10,10,20,True
+Paris,Hotel Eiffel Seine,10,10,20,True
+Paris,Hotel Mimosa Paris,10,10,20,True
+Paris,Hotel Minerve,10,10,20,True
+Paris,Hotel Nation Montmartre,10,10,20,True
+Paris,Hôtel Lodge In Paris 13,10,10,20,True
+Paris,Motel One Paris-Porte Dorée,10,10,20,True
+Paris,Sofitel Le Scribe Paris Opera,10,10,20,True
+Paris,citizenM Paris Champs-Élysées,10,10,20,True
+Rome,Alpi Hotel,10,10,20,True
+Rome,Exe International Palace,10,10,20,True
+Rome,Hotel 55 Fifty-Five - Maison d'Art Collection,10,10,20,True
+Rome,Hotel 77 Seventy-Seven - Maison D'Art Collection,10,10,20,True
+Rome,Hotel 87 eighty-seven - Maison d'Art Collection,10,10,20,True
+Rome,Hotel Villa Pamphili Roma,10,10,20,True
+Rome,NH Collection Roma Centro,10,10,20,True
+Rome,NH Roma Villa Carpegna,10,10,20,True
+Rome,The Hive Hotel,10,10,20,True
+Rome,The Spanish Suite Campo de' Fiori,10,10,20,True
+Seoul,"Four Points by Sheraton Josun, Seoul Station",10,10,20,True
+Seoul,Hamilton Hotel,10,10,20,True
+Seoul,Hotel Skypark Central Myeongdong,10,10,20,True
+Seoul,Hotel Skypark Dongdaemun I,10,10,20,True
+Seoul,Hotel Skypark Myeongdong 1,10,10,20,True
+Seoul,Ibis Styles Ambassador Seoul Myeong-dong,10,10,20,True
+Seoul,Imperial Palace Boutique Hotel,10,10,20,True
+Seoul,LOTTE City Hotel Myeongdong,10,10,20,True
+Seoul,Orakai Insadong Suites,10,10,20,True
+Seoul,Stay Hotel Gangnam,10,10,20,True
+Washington,Beacon Hotel & Corporate Quarters,10,10,20,True
+Washington,Courtyard by Marriott Washington Downtown/Convention Center,10,10,20,True
+Washington,Generator Hotel Washington DC,10,10,20,True
+Washington,Glover Park Hotel Georgetown,10,10,20,True
+Washington,Hamilton Hotel - Washington DC,10,10,20,True
+Washington,Hilton Garden Inn Washington DC Downtown,10,10,20,True
+Washington,Hilton Washington DC Capitol Hill,10,10,20,True
+Washington,Motto by Hilton Washington DC City Center,10,10,20,True
+Washington,Riggs Washington DC,10,10,20,True
+Washington,State Plaza Hotel,10,10,20,True
