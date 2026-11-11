@@ -314,3 +314,719 @@ Overall test performance:
 ```text
 [[189, 11],
  [ 15, 185]]
+## Hotel-Disjoint Evaluation and Model Robustness Analysis
+
+### Objective
+
+The objective of this experiment was to investigate whether the high classification performance observed in the initial MAiDE-up experiments remained consistent when models were evaluated on reviews from hotels that were not represented in the training data.
+
+The experiment also examined the stability of the Linear SVM across different random seeds and compared its performance with DistilBERT using a paired statistical test.
+
+### Dataset Split Audit
+
+The original MAiDE-up English dataset contained 2,000 reviews from 100 hotels, with 1,000 human-written and 1,000 GPT-4-generated reviews.
+
+An audit of the original random train/test split identified substantial overlap in hotel identities between the training and testing sets.
+
+A total of 99 hotels appeared in both sets, and all 400 test reviews belonged to hotels represented in the training set.
+
+Although this did not necessarily indicate duplicate review texts, it meant that the original evaluation did not measure performance on entirely unseen hotels.
+
+To address this limitation, a hotel-disjoint splitting strategy was introduced.
+
+### Revised Hotel-Disjoint Split
+
+The 100 hotels were divided into separate development and final test groups using random seed 42.
+
+| Dataset Partition | Hotels | Reviews |
+|---|---:|---:|
+| Development | 80 | 1,600 |
+| Final Test | 20 | 400 |
+| Total | 100 | 2,000 |
+
+Each hotel contributed 10 human-written and 10 AI-generated reviews.
+
+The revised split contained no overlapping hotel identities between the development and final test partitions.
+
+The final test set contained 200 human-written and 200 AI-generated reviews.
+
+### Linear SVM Hotel-Disjoint Evaluation
+
+The Linear SVM used the same TF-IDF feature configuration as the earlier experiments:
+
+- Lowercase text
+- English stop-word removal
+- Unigrams and bigrams
+- Maximum of 20,000 TF-IDF features
+- LinearSVC classifier
+
+The TF-IDF vectorizer was fitted only on the development data, and the trained classifier was evaluated on the 400 reviews from unseen hotels.
+
+**Final test accuracy: 92.50%**
+
+The model correctly classified 370 of the 400 reviews.
+
+This result was slightly lower than the original random-split SVM accuracy of 92.75%, representing a decrease of 0.25 percentage points.
+
+### Repeated-Seed Robustness Evaluation
+
+To investigate whether the hotel-disjoint SVM result was sensitive to the random assignment of hotels, the experiment was repeated using five different random seeds.
+
+| Random Seed | Accuracy |
+|---|---:|
+| 42 | 92.50% |
+| 7 | 92.75% |
+| 21 | 93.50% |
+| 84 | 93.00% |
+| 100 | 92.50% |
+
+**Mean accuracy: 92.85%**
+
+**Standard deviation: approximately 0.42 percentage points**
+
+The relatively small variation in accuracy suggests that the Linear SVM's performance was reasonably stable across these five hotel-disjoint partitions.
+
+However, this evaluation was limited to five random seeds and one dataset.
+
+### DistilBERT Hotel-Disjoint Evaluation
+
+DistilBERT was trained and evaluated using the hotel-disjoint partitioning strategy.
+
+The development hotels were further divided into training and validation sets, while the 20 final test hotels remained unseen during training and validation.
+
+| Dataset Partition | Hotels | Reviews |
+|---|---:|---:|
+| Training | 64 | 1,280 |
+| Validation | 16 | 320 |
+| Final Test | 20 | 400 |
+
+The model used the `distilbert-base-uncased` architecture with a maximum sequence length of 256 tokens.
+
+The final evaluation used the saved hotel-disjoint DistilBERT checkpoint.
+
+**Final test accuracy: 94.00%**
+
+The model correctly classified 376 of the 400 unseen-hotel reviews.
+
+#### Confusion Matrix
+
+Rows represent actual classes and columns represent predicted classes, ordered Human (0) and AI (1).
+
+```text
+[[184, 16],
+ [  8, 192]]
+```
+
+DistilBERT correctly classified 184 of the 200 human reviews and 192 of the 200 AI-generated reviews.
+
+It incorrectly classified 16 human reviews as AI-generated and eight AI-generated reviews as human-written.
+
+### Model Comparison
+
+| Model | Original Random-Split Accuracy | Hotel-Disjoint Accuracy |
+|---|---:|---:|
+| Linear SVM | 92.75% | 92.50% |
+| DistilBERT | 93.50% | 94.00% |
+
+DistilBERT achieved 1.50 percentage points higher accuracy than Linear SVM on the hotel-disjoint final test set.
+
+The difference between the original random-split and hotel-disjoint results was relatively small for both models.
+
+However, these results should not be interpreted as proving that hotel identity had no influence on model predictions.
+
+### Paired Statistical Comparison
+
+Because both models were evaluated on the same 400 hotel-disjoint test reviews, their prediction correctness was compared using McNemar's test.
+
+| Prediction Outcome | Reviews |
+|---|---:|
+| Both models correct | 354 |
+| Both models incorrect | 8 |
+| Only SVM correct | 16 |
+| Only DistilBERT correct | 22 |
+
+The exact McNemar test produced a p-value of approximately 0.417692.
+
+Because the p-value exceeded the 0.05 significance threshold, the observed performance difference was not statistically significant.
+
+Therefore, the experiment did not provide sufficient evidence to conclude that DistilBERT had a lower error rate than Linear SVM on this hotel-disjoint test set.
+
+### Interpretation
+
+The hotel-disjoint evaluation demonstrated that both models maintained high classification accuracy when evaluated on reviews from previously unseen hotels within MAiDE-up.
+
+The repeated-seed experiment also showed relatively stable Linear SVM performance across five hotel-disjoint partitions.
+
+Although DistilBERT achieved a higher point estimate of accuracy than SVM, the paired statistical test did not establish a statistically significant difference between their error rates.
+
+These findings support the importance of evaluating model robustness using group-aware dataset partitions rather than relying exclusively on random review-level splits.
+
+### Limitations
+
+The hotel-disjoint evaluation remained within a single dataset containing GPT-4-generated and human-written reviews.
+
+Consequently, strong performance on unseen hotels did not establish that either model would generalize to other review datasets, AI generators, or prompting strategies.
+
+The repeated-seed analysis was conducted for Linear SVM only and included five partitions.
+
+These limitations motivated a subsequent external evaluation using human-written Ott reviews and Llama-generated reviews.
+## External Generalization Evaluation on Ott/Llama Reviews
+
+### Objective
+
+This experiment evaluated how well Linear SVM and DistilBERT models trained on MAiDE-up human-written and GPT-4-generated hotel reviews generalized to a different dataset containing human-written and Llama-generated reviews.
+
+The primary objective was to examine cross-dataset generalization and determine whether the models maintained their classification performance outside the original training dataset.
+
+### External Dataset Preparation
+
+The external evaluation dataset combined truthful human-written reviews from the Ott Deceptive Opinion Spam Corpus with Llama-generated reviews from the `op_spam_AI` repository.
+
+The Llama-generated reviews were produced using the first 10 words of truthful Ott reviews as prompts. Both positive and negative Llama reviews were labeled as AI-generated, since sentiment does not determine authorship.
+
+The following preparation steps were completed:
+
+- Extracted 800 Llama-generated reviews from positive and negative review archives.
+- Excluded 10 empty Llama reviews.
+- Selected 800 truthful human-written reviews from the Ott corpus.
+- Removed four duplicate human-review records.
+- Assigned label 0 to human-written reviews and label 1 to AI-generated reviews.
+- Preserved review text, sentiment, hotel identifiers, generator information, and dataset source.
+
+The final external evaluation dataset contained 1,586 reviews.
+
+| Class | Negative | Positive | Total |
+|---|---:|---:|---:|
+| Human-written | 396 | 400 | 796 |
+| Llama-generated | 394 | 396 | 790 |
+| Total | 790 | 796 | 1,586 |
+
+### Dataset Integrity and Overlap Analysis
+
+Before evaluation, the external dataset was audited for empty reviews, duplicate records, and potential textual overlap with the MAiDE-up dataset.
+
+The Llama review audit identified 790 unique nonempty reviews.
+
+An exact normalized text comparison between the Llama-generated reviews and the 2,000 MAiDE-up English reviews identified zero exact matches.
+
+A TF-IDF cosine similarity analysis was also performed. The average maximum similarity between a Llama review and its closest MAiDE-up review was approximately 0.1593.
+
+The highest observed similarity was 0.6501, and no Llama reviews had a maximum similarity of 0.70 or higher.
+
+These results did not reveal substantial direct textual duplication between the evaluated Llama reviews and MAiDE-up. However, the checks could not rule out all forms of dataset contamination or source-related similarities.
+
+### Evaluation Procedure
+
+Both models were evaluated on the same 1,586 external reviews.
+
+The Linear SVM was trained using the MAiDE-up hotel-disjoint training dataset containing 1,600 reviews. Its TF-IDF configuration included lowercase normalization, English stop-word removal, unigrams and bigrams, and a maximum of 20,000 features.
+
+DistilBERT was evaluated using the previously saved hotel-disjoint model checkpoint, `models/distilbert-maide-hotel`. The evaluation used a maximum sequence length of 256 tokens and a batch size of 8.
+
+Neither model was trained or fine-tuned on the external Ott/Llama dataset.
+
+### External Evaluation Results
+
+| Metric | Linear SVM | DistilBERT |
+|---|---:|---:|
+| Accuracy | 50.38% | 56.62% |
+| AI Precision | 50.83% | 76.29% |
+| AI Recall | 11.65% | 18.73% |
+| AI F1-score | 18.95% | 30.08% |
+| Correct Predictions | 799 | 898 |
+| Incorrect Predictions | 787 | 688 |
+
+#### Linear SVM Confusion Matrix
+
+Rows represent actual classes and columns represent predicted classes, ordered Human (0) and AI (1).
+
+```text
+[[707,  89],
+ [698,  92]]
+```
+
+The SVM correctly classified 707 of 796 human reviews but identified only 92 of 790 Llama-generated reviews.
+
+It incorrectly classified 698 Llama-generated reviews as human-written, resulting in an AI recall of 11.65%.
+
+#### DistilBERT Confusion Matrix
+
+```text
+[[750,  46],
+ [642, 148]]
+```
+
+DistilBERT correctly classified 750 of 796 human reviews and 148 of 790 Llama-generated reviews.
+
+It incorrectly classified 642 Llama-generated reviews as human-written, resulting in an AI recall of 18.73%.
+
+### Comparison With Hotel-Disjoint MAiDE-up Performance
+
+| Model | MAiDE-up Accuracy | External Ott/Llama Accuracy | Change |
+|---|---:|---:|---:|
+| Linear SVM | 92.50% | 50.38% | -42.12 percentage points |
+| DistilBERT | 94.00% | 56.62% | -37.38 percentage points |
+
+Both models experienced substantial performance declines when evaluated on the external dataset.
+
+DistilBERT retained a 6.24-percentage-point accuracy advantage over Linear SVM, but both models demonstrated low recall for Llama-generated reviews.
+
+### Paired Model Comparison and Statistical Testing
+
+The two models' predictions were compared on the same 1,586 external reviews.
+
+| Prediction Outcome | Reviews |
+|---|---:|
+| Both models correct | 736 |
+| Both models incorrect | 625 |
+| Only SVM correct | 63 |
+| Only DistilBERT correct | 162 |
+
+An exact McNemar test was performed using the 225 reviews for which the models differed in prediction correctness.
+
+The resulting p-value was below 0.001, indicating a statistically significant difference in paired error rates at the 0.05 significance level.
+
+DistilBERT correctly classified 99 more reviews than Linear SVM.
+
+### Interpretation
+
+The results demonstrated a substantial decline in classification performance when both models were evaluated outside the MAiDE-up dataset.
+
+Although the models previously achieved accuracies above 92% on hotel-disjoint MAiDE-up reviews, neither maintained comparable performance on the external Ott/Llama dataset.
+
+Both models classified most Llama-generated reviews as human-written.
+
+This suggests that the models learned patterns that were effective within MAiDE-up but were less reliable when applied to reviews from a different source and AI-generation process.
+
+DistilBERT achieved higher accuracy, AI precision, AI recall, and AI F1-score than Linear SVM. The paired statistical comparison also provided evidence that its external error rate was lower.
+
+However, DistilBERT's AI recall remained below 20%, indicating that its external detection capability was still limited.
+
+### Limitations
+
+This experiment examined cross-dataset and cross-generator transfer rather than the isolated effect of changing the AI generator.
+
+MAiDE-up and Ott/Llama differ in review sources, hotel populations, prompting methods, and potentially linguistic characteristics.
+
+The Llama-generated reviews were prompted using the first 10 words of truthful Ott reviews, creating a relationship between the human and AI review sources.
+
+Although exact text overlap and TF-IDF similarity checks were conducted against MAiDE-up, these checks could not establish complete independence between all source materials.
+
+The external dataset was also approximately balanced between human and AI classes, so the reported precision values may differ under real-world class distributions.
+
+### Conclusion
+
+The external evaluation revealed significant limitations in the generalization capabilities of both Linear SVM and DistilBERT.
+
+DistilBERT significantly outperformed Linear SVM on the external test set, but both models failed to identify most Llama-generated reviews.
+
+The findings highlight the importance of evaluating AI-generated review detectors on external datasets rather than relying exclusively on performance within a single dataset.
+
+The results also motivate further comparative error analysis to investigate shared model failures, differences in review characteristics, and potential causes of misclassification.
+
+---
+
+## Comparative Error Analysis and Length-Matched Evaluation
+
+### Objective
+
+To investigate the causes of performance degradation when applying machine learning and transformer-based models trained on MAiDE-up to an external dataset containing human-written Ott reviews and Llama-generated reviews.
+
+The analysis examines prediction errors, review length, sentiment, and class distribution. Additional evaluations assess whether the models' poor performance persists when comparing reviews of similar lengths and when balancing the human and AI-generated classes.
+
+### 1. Comparative Prediction Error Analysis
+
+The external dataset contained 1,586 reviews:
+
+- Human-written reviews: 796
+- Llama-generated reviews: 790
+
+The predictions from Linear SVM and DistilBERT were compared on the same reviews.
+
+| Prediction Outcome | Number of Reviews |
+|---|---:|
+| Both models correct | 736 |
+| Both models incorrect | 625 |
+| Only DistilBERT correct | 162 |
+| Only SVM correct | 63 |
+| Total | 1,586 |
+
+#### Errors by Actual Class
+
+| Prediction Outcome | Human | AI-generated |
+|---|---:|---:|
+| Both correct | 679 | 57 |
+| Both incorrect | 18 | 607 |
+| Only DistilBERT correct | 71 | 91 |
+| Only SVM correct | 28 | 35 |
+
+Of the 625 reviews misclassified by both models, 607 (97.12%) were AI-generated reviews incorrectly classified as human.
+
+This indicates that the primary shared failure involved recognizing Llama-generated reviews rather than identifying human-written reviews.
+
+### 2. Review Length Analysis
+
+Review length was examined to determine whether textual length was associated with model performance.
+
+#### Review Length by Actual Class
+
+| Characteristic | Human | AI-generated |
+|---|---:|---:|
+| Number of reviews | 796 | 790 |
+| Mean word count | 150.81 | 43.28 |
+| Median word count | 130 | 47 |
+| Minimum word count | 30 | 8 |
+| Maximum word count | 749 | 80 |
+
+Human-written reviews were approximately 3.5 times longer on average than Llama-generated reviews.
+
+All Llama-generated reviews contained 80 words or fewer, while 538 human-written reviews contained more than 100 words.
+
+#### Average Length by Prediction Outcome
+
+| Prediction Outcome | Mean Word Count |
+|---|---:|
+| Both models correct | 149.69 |
+| Both models incorrect | 43.17 |
+| Only DistilBERT correct | 81.01 |
+| Only SVM correct | 62.79 |
+
+Reviews misclassified by both models were substantially shorter on average than reviews classified correctly by both models.
+
+However, review length was also strongly associated with the actual class. Therefore, these results alone do not establish that shorter reviews caused the classification errors.
+
+### 3. Evaluation on the Overlapping Review-Length Range
+
+To investigate review length further, both models were evaluated on reviews containing 30–80 words, the observed length range shared by both classes.
+
+This subset contained 724 reviews:
+
+- Human-written: 148
+- AI-generated: 576
+
+#### Model Performance
+
+| Metric | Linear SVM | DistilBERT |
+|---|---:|---:|
+| Accuracy | 26.24% | 34.25% |
+| AI precision | 69.81% | 84.72% |
+| AI recall | 12.85% | 21.18% |
+| AI F1-score | 21.70% | 33.89% |
+
+Linear SVM confusion matrix:
+
+```text
+[[116,  32],
+ [502,  74]]
+```
+
+DistilBERT confusion matrix:
+
+```text
+[[126,  22],
+ [454, 122]]
+```
+
+Both models continued to exhibit low AI recall despite restricting the evaluation to a shared length range.
+
+However, this subset was imbalanced, containing approximately 79.6% AI-generated reviews. Consequently, overall accuracy was influenced by the class distribution.
+
+### 4. Class-Balanced and Length-Matched Evaluation
+
+A more controlled subset was constructed by matching human and AI-generated reviews using:
+
+- A common word-count range of 30–80 words
+- Five-word length bins
+- Review sentiment (positive or negative)
+- Equal numbers of human and AI reviews within each matching group
+- Random seed 42 for reproducibility
+
+The resulting matched subset contained 258 reviews.
+
+#### Matched Dataset Characteristics
+
+| Characteristic | Human | AI-generated |
+|---|---:|---:|
+| Number of reviews | 129 | 129 |
+| Negative reviews | 32 | 32 |
+| Positive reviews | 97 | 97 |
+| Mean word count | 58.81 | 58.85 |
+| Median word count | 62 | 61 |
+| Minimum word count | 30 | 30 |
+| Maximum word count | 80 | 80 |
+
+The matched subset achieved equal class sizes, identical sentiment distributions, and nearly identical average review lengths.
+
+#### Matched Evaluation Results
+
+| Metric | Linear SVM | DistilBERT |
+|---|---:|---:|
+| Accuracy | 45.35% | 53.49% |
+| AI precision | 36.96% | 58.82% |
+| AI recall | 13.18% | 23.26% |
+| AI F1-score | 19.43% | 33.33% |
+
+Linear SVM confusion matrix:
+
+```text
+[[100,  29],
+ [112,  17]]
+```
+
+DistilBERT confusion matrix:
+
+```text
+[[108, 21],
+ [ 99, 30]]
+```
+
+Linear SVM correctly identified only 17 of 129 AI-generated reviews, while DistilBERT correctly identified 30 of 129.
+
+Both models therefore continued to exhibit low AI recall after matching review length and sentiment.
+
+### 5. Comparison Across External Evaluations
+
+| Evaluation | SVM Accuracy | DistilBERT Accuracy | SVM AI Recall | DistilBERT AI Recall |
+|---|---:|---:|---:|---:|
+| Full external dataset | 50.38% | 56.62% | 11.65% | 18.73% |
+| Length-overlap subset | 26.24% | 34.25% | 12.85% | 21.18% |
+| Matched subset | 45.35% | 53.49% | 13.18% | 23.26% |
+
+The evaluations used different class distributions and sample sizes, so accuracy values should not be interpreted as directly comparable measures of performance under identical conditions.
+
+Nevertheless, AI recall remained low across all three evaluations.
+
+### 6. Interpretation and Research Implications
+
+The comparative error analysis produced several important findings.
+
+**First, the models exhibited substantial external generalization difficulties.** Both Linear SVM and DistilBERT performed well on the MAiDE-up hotel-disjoint evaluation but struggled to identify Llama-generated reviews in the external dataset.
+
+**Second, the majority of shared errors involved AI-generated reviews.** Of the 625 reviews both models misclassified, 607 were Llama-generated reviews predicted as human.
+
+**Third, review length differed substantially between the external human and AI classes.** This introduced a potential confounding variable that required further investigation.
+
+**Fourth, the models' low AI recall persisted after restricting review length and after matching the classes by sentiment and approximate word count.** Therefore, differences in review length and sentiment do not fully explain the observed failures.
+
+**Finally, DistilBERT consistently achieved higher AI recall than Linear SVM in these evaluations.** However, both models missed most Llama-generated reviews, indicating limitations in their ability to generalize beyond the training dataset.
+
+### 7. Limitations
+
+Several limitations must be considered when interpreting these results.
+
+1. The external evaluation combines a change in dataset source with a change in AI text generator. Therefore, performance degradation cannot be attributed exclusively to the generator.
+2. The Llama-generated reviews were produced using prompts derived from the beginning of truthful Ott reviews, which may influence their linguistic characteristics.
+3. Matching by length and sentiment does not eliminate differences in writing style, vocabulary, content, or generation methodology.
+4. The matched subset contains only 258 reviews and is drawn from the existing external test set, rather than an independent dataset.
+5. The matched subset has a predominantly positive sentiment distribution, reflecting the availability of reviews within the matching groups.
+6. The matching procedure uses one reproducible random sample; the sensitivity of results to alternative matched samples has not yet been evaluated.
+
+### 8. Conclusion
+
+The results provide evidence that models trained to distinguish human-written reviews from GPT-4-generated reviews in MAiDE-up do not necessarily generalize effectively to Llama-generated reviews from a different dataset.
+
+Although review length and sentiment were investigated as possible confounding factors, the models continued to demonstrate poor AI detection after matching these characteristics.
+
+DistilBERT consistently outperformed Linear SVM in AI recall, but neither model achieved reliable detection of Llama-generated reviews.
+
+These findings highlight the importance of evaluating AI-generated review detectors across different datasets, text generators, and review characteristics rather than relying exclusively on in-domain accuracy.
+
+### Generated Files
+
+- `results/llama_external_error_analysis.csv`
+- `results/llama_external_errors_by_class.csv`
+- `results/llama_external_errors_by_sentiment.csv`
+- `results/llama_external_errors_by_length.csv`
+- `results/llama_review_length_by_class.csv`
+- `results/llama_review_length_distribution.csv`
+- `results/llama_accuracy_by_length_and_class.csv`
+- `results/llama_length_overlap_metrics.csv`
+- `results/llama_matched_reviews.csv`
+- `results/llama_matched_metrics.csv`
+
+### Analysis Scripts
+
+- `src/analyze_llama_external_errors.py`
+- `src/analyze_llama_review_length.py`
+- `src/analyze_llama_length_overlap.py`
+- `src/analyze_llama_matched_subset.py`
+
+---
+
+## Linguistic Feature Analysis and Statistical Significance Testing
+
+### Objective
+
+To investigate whether measurable linguistic characteristics are associated with the classification errors observed when Linear SVM and DistilBERT were evaluated on Llama-generated hotel reviews.
+
+The analysis focuses on vocabulary characteristics, sentence structure, punctuation, and lexical diversity.
+
+### 1. Dataset and Prediction Outcomes
+
+The analysis included 790 Llama-generated reviews from the external Ott/Llama evaluation dataset.
+
+| Prediction Outcome | Reviews |
+|---|---:|
+| Both models incorrect | 607 |
+| Both models correct | 57 |
+| Only DistilBERT correct | 91 |
+| Only Linear SVM correct | 35 |
+| Total | 790 |
+
+### 2. Linguistic Features
+
+Eight linguistic features were extracted using Python and regular expressions:
+
+1. Word count
+2. Sentence count
+3. Average word length
+4. Average sentence length
+5. Lexical diversity (unique words divided by total words)
+6. Exclamation mark count
+7. Question mark count
+8. Comma count
+
+Word counts were calculated using regular-expression tokenization.
+
+### 3. Initial Linguistic Feature Comparison
+
+| Feature | Both Incorrect | Both Correct |
+|---|---:|---:|
+| Mean word count | 42.522 | 45.579 |
+| Mean sentence count | 3.140 | 3.474 |
+| Mean word length | 4.154 | 4.607 |
+| Mean sentence length | 15.259 | 14.307 |
+| Lexical diversity | 0.807 | 0.774 |
+| Exclamation count | 0.168 | 0.053 |
+| Question count | 0.026 | 0.000 |
+| Comma count | 1.313 | 1.912 |
+
+The initial results indicated differences in vocabulary characteristics, punctuation, and sentence structure between correctly and incorrectly classified reviews.
+
+However, these comparisons were descriptive and could be influenced by differences in review length.
+
+### 4. Length-Controlled Linguistic Analysis
+
+To reduce variation in review length, the analysis was restricted to Llama-generated reviews containing 40–60 words.
+
+Only reviews where both models were correct or both models were incorrect were included.
+
+The resulting subset contained 257 reviews:
+
+- Both models incorrect: 229
+- Both models correct: 28
+
+#### Linguistic Feature Comparison
+
+| Feature | Both Incorrect | Both Correct |
+|---|---:|---:|
+| Mean word count | 51.760 | 50.464 |
+| Mean sentence count | 3.659 | 3.786 |
+| Mean word length | 4.133 | 4.581 |
+| Mean sentence length | 16.181 | 14.600 |
+| Lexical diversity | 0.758 | 0.742 |
+| Mean exclamation count | 0.210 | 0.036 |
+| Mean question count | 0.039 | 0.000 |
+| Mean comma count | 1.616 | 2.214 |
+
+The results suggested that reviews correctly identified by both models tended to contain longer words and more commas than reviews misclassified by both models.
+
+Statistical testing was subsequently conducted to assess these differences.
+
+### 5. Statistical Significance Testing
+
+The Mann–Whitney U test was used to compare linguistic features between the two prediction-outcome groups.
+
+Seven features were tested:
+
+- Average word length
+- Average sentence length
+- Lexical diversity
+- Sentence count
+- Comma count
+- Exclamation count
+- Question count
+
+Two-sided tests were performed.
+
+To account for multiple comparisons, p-values were adjusted using the Benjamini–Hochberg false discovery rate procedure.
+
+Rank-biserial effect sizes were also calculated. Positive values indicate that the feature tended to have higher values among correctly classified reviews.
+
+The significance threshold was set at an FDR-adjusted p-value below 0.05.
+
+#### Statistical Results
+
+| Feature | Raw p-value | Adjusted p-value | Rank-biserial Effect | Significant |
+|---|---:|---:|---:|---|
+| Average word length | 4.92 × 10⁻⁸ | 3.45 × 10⁻⁷ | 0.63178 | Yes |
+| Comma count | 0.02185 | 0.07646 | 0.25842 | No |
+| Lexical diversity | 0.10962 | 0.25577 | -0.18543 | No |
+| Exclamation count | 0.16578 | 0.29011 | -0.08827 | No |
+| Question count | 0.35168 | 0.41029 | -0.03057 | No |
+| Average sentence length | 0.29405 | 0.41029 | -0.12165 | No |
+| Sentence count | 0.45752 | 0.45752 | 0.08344 | No |
+
+### 6. Key Finding: Average Word Length
+
+Average word length was the only linguistic feature that remained statistically significant after multiple-comparison correction.
+
+The mean word length was:
+
+- Both models correct: 4.581 characters
+- Both models incorrect: 4.133 characters
+
+The Mann–Whitney U test produced:
+
+- Raw p-value: 4.92252669 × 10⁻⁸
+- FDR-adjusted p-value: 3.44576868 × 10⁻⁷
+- Rank-biserial effect size: 0.63178
+
+The positive effect size indicates that correctly classified Llama reviews tended to contain longer words than incorrectly classified reviews.
+
+The results provide evidence of an association between average word length and classification outcomes within this subset.
+
+However, the findings do not establish that average word length directly caused the models' predictions.
+
+### 7. Interpretation
+
+The linguistic analysis suggests that vocabulary characteristics may be associated with the ability of Linear SVM and DistilBERT to recognize Llama-generated reviews.
+
+Average word length exhibited the strongest observed association with classification outcomes and remained statistically significant after false discovery rate correction.
+
+Other characteristics, including punctuation, lexical diversity, and sentence structure, did not remain statistically significant after correction.
+
+These results provide additional insight into the external generalization difficulties identified in earlier experiments.
+
+### 8. Limitations
+
+1. The analysis was exploratory and used the existing external evaluation dataset.
+2. The length-controlled subset contained only 28 reviews correctly classified by both models.
+3. Restricting reviews to 40–60 words reduced length variation but did not eliminate all potential confounding variables.
+4. Linguistic features may be correlated with one another.
+5. The analysis compared groups defined by model correctness rather than testing causal effects.
+6. Statistical significance does not establish that the same associations will generalize to other datasets or text generators.
+7. The results should be interpreted as exploratory associations, not definitive explanations of model behavior.
+
+### 9. Conclusion
+
+The linguistic feature analysis identified average word length as a statistically significant characteristic associated with joint classification outcomes on the selected Llama-generated review subset.
+
+Reviews correctly identified by both models tended to contain longer words than reviews both models misclassified.
+
+The result remained statistically significant after controlling the false discovery rate across seven linguistic comparisons.
+
+These findings suggest that vocabulary-related characteristics warrant further investigation when studying the robustness and generalization of AI-generated review detection models.
+
+### Generated Files
+
+- `results/llama_linguistic_features.csv`
+- `results/llama_linguistic_feature_summary.csv`
+- `results/llama_length_controlled_features.csv`
+- `results/llama_linguistic_significance.csv`
+
+### Analysis Scripts
+
+- `src/analyze_llama_linguistic_features.py`
+- `src/analyze_llama_length_controlled_features.py`
+- `src/test_llama_linguistic_significance.py`

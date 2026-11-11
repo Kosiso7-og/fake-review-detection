@@ -1,0 +1,5 @@
+outcome,negative,positive
+Both Correct,379,357
+Both Wrong,328,297
+DistilBERT Only Correct,60,102
+SVM Only Correct,23,40

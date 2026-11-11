@@ -1,0 +1,7 @@
+length_category,actual_class,reviews,svm_accuracy,distilbert_accuracy
+1-50 words,AI,447,11.19,15.44
+1-50 words,Human,36,72.22,80.56
+51-100 words,AI,343,12.24,23.03
+51-100 words,Human,222,84.68,87.39
+101-200 words,Human,372,89.78,97.04
+201+ words,Human,166,95.78,100.0

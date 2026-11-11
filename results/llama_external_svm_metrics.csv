@@ -1,0 +1,2 @@
+model,dataset,accuracy,precision_ai,recall_ai,f1_ai,tn,fp,fn,tp
+Linear SVM,Ott/Llama External,0.5037831021437579,0.5082872928176796,0.11645569620253164,0.18949536560247168,707,89,698,92

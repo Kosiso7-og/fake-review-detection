@@ -1,0 +1,5 @@
+outcome,word_count,sentence_count,avg_word_length,avg_sentence_length,lexical_diversity,exclamation_count,question_count,comma_count
+Both Correct,45.579,3.474,4.607,14.307,0.774,0.053,0.0,1.912
+Both Wrong,42.522,3.14,4.154,15.259,0.807,0.168,0.026,1.313
+DistilBERT Only Correct,50.275,3.429,4.44,16.438,0.779,0.077,0.0,2.088
+SVM Only Correct,47.657,4.171,4.5,14.231,0.77,0.457,0.0,1.429

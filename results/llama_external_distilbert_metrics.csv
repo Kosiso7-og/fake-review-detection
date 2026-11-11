@@ -1,0 +1,2 @@
+model,dataset,accuracy,precision_ai,recall_ai,f1_ai,tn,fp,fn,tp
+DistilBERT,Ott/Llama External,0.5662042875157629,0.7628865979381443,0.18734177215189873,0.3008130081300813,750,46,642,148

@@ -1,0 +1,5 @@
+outcome,Human,AI
+Both Correct,679,57
+Both Wrong,18,607
+DistilBERT Only Correct,71,91
+SVM Only Correct,28,35
